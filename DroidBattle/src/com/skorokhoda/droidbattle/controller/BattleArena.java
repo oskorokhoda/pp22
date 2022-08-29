@@ -2,6 +2,8 @@ package com.skorokhoda.droidbattle.controller;
 
 import com.skorokhoda.droidbattle.droid.BaseDroid;
 
+import java.util.Random;
+
 public class BattleArena {
     private BaseDroid firstDroid;
     private BaseDroid secondDroid;
@@ -14,8 +16,15 @@ public class BattleArena {
     }
 
     public void startFight() {
-        attacker = firstDroid;
-        defender = secondDroid;
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            attacker = firstDroid;
+            defender = secondDroid;
+        } else {
+            attacker = secondDroid;
+            defender = firstDroid;
+        }
+
         do {
             BaseDroid temp = attacker;
             attacker = defender;
