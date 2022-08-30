@@ -1,14 +1,42 @@
 package com.skorokhoda.droidbattle.droid;
 
+import java.util.Random;
+
 public class BaseDroid {
-    public int health;
-    public int damage;
-    public String name;
+    private int health;
+
+    private int damage;
+    private String name;
 
     public BaseDroid(int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
         this.name = name;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public int getHit(int damage) {
+        Random random = new Random();
+
+        int actualDamage = random.nextInt(damage);
+        this.health -= actualDamage;
+
+        if (health < 0) {
+            health = 0;
+        }
+
+        return actualDamage;
     }
 
     @Override

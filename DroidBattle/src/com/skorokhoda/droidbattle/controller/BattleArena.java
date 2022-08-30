@@ -3,6 +3,7 @@ package com.skorokhoda.droidbattle.controller;
 import com.skorokhoda.droidbattle.droid.BaseDroid;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class BattleArena {
     private BaseDroid firstDroid;
@@ -15,7 +16,29 @@ public class BattleArena {
         this.secondDroid = secondDroid;
     }
 
-    public void startFight() {
+    public BaseDroid startFight() throws InterruptedException {
+        int round = 1;
+        do {
+            initFighters();
+
+            System.out.println("-------------------------------------");
+            System.out.println("Round " + round);
+
+            int actualDamage = defender.getHit(attacker.getDamage());
+            System.out.println(defender.getName() + " get hit with " + actualDamage + " damage");
+
+
+            System.out.println("Defender " +defender);
+            System.out.println("Attacker " + attacker);
+            round++;
+
+            TimeUnit.SECONDS.sleep(1);
+        } while(defender.isAlive());
+
+        return attacker;
+    }
+
+    private void initFighters() {
         Random random = new Random();
         if (random.nextBoolean()) {
             attacker = firstDroid;
@@ -24,18 +47,5 @@ public class BattleArena {
             attacker = secondDroid;
             defender = firstDroid;
         }
-
-        do {
-            BaseDroid temp = attacker;
-            attacker = defender;
-            defender = temp;
-
-            defender.health -= attacker.damage;
-            System.out.println(defender.name + " get hit with " + attacker.damage + " damage");
-            System.out.println(defender);
-
-        } while(defender.health > 0);
-
-        System.out.println(attacker + " is the winner");
     }
 }
