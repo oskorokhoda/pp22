@@ -3,10 +3,9 @@ package com.skorokhoda.droidbattle.droid;
 import java.util.Random;
 
 public class BaseDroid {
+    private final String name;
+    private final int damage;
     private int health;
-
-    private int damage;
-    private String name;
 
     public BaseDroid(int health, int damage, String name) {
         this.health = health;
